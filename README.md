@@ -1,75 +1,101 @@
-#پروژه وایب کدینگ با پرامپت اختصاصی بازی بتل رویال با کمک  lovable 
+<div align="center">
 
-# Welcome to your Lovable project
+# ⚔️🔥 2D Top-Down Battle Royale  
+### ساخته‌شده با Vite + TypeScript + React + shadcn-ui + Tailwind CSS
 
-## Project info
+یک بازی بتل‌رویال دوسویه‌بالا (Top-Down 2D) سریع، رقابتی و اعتیادآور!  
+بازیکنان وارد نقشه می‌شوند، آیتم جمع می‌کنند، با هم مبارزه می‌کنند و تنها **یک نفر** برنده است!
 
-**URL**: https://lovable.dev/projects/06fb3a0b-ccd1-4822-8d2d-b91d38161b7d
+🎮⚡  
+<br/>
 
-## How can I edit this code?
+<img src="demo.gif" width="600" alt="Game Demo"/>
 
-There are several ways of editing your application.
+</div>
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/06fb3a0b-ccd1-4822-8d2d-b91d38161b7d) and start prompting.
+## 🚀 ویژگی‌ها
 
-Changes made via Lovable will be committed automatically to this repo.
+- 👁️ نمای بالا (Top-Down 2D)
+- 🔫 سیستم تیراندازی با ماوس
+- 🗺️ نقشه پویا و رویدادهای تصادفی
+- 🛡️ جمع‌آوری آیتم، مهمات و پاورآپ
+- 📦 چست‌های تصادفی با loot متفاوت
+- 🌀 کوچک‌شدن دایره (Zone)
+- 👤 دشمنان رباتی برای حالت تک‌نفره
+- 💥 برخورد گلوله، Knockback، مرگ و Respawn
+- 🎵 افکت‌های صدا برای تیر، قدم، انفجار و محیط
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🧩 تکنولوژی‌های استفاده شده
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+این پروژه با ابزارهای مدرن ساخته شده تا هم سبک باشد و هم توسعه سریع و تمیز بماند:
 
-Follow these steps:
+- ⚡ **Vite** برای اجرای سریع
+- 🟦 **TypeScript** جهت کدنویسی امن و تمیز
+- ⚛️ **React** برای ساخت UI و سیستم‌های بازی
+- 🎨 **Tailwind CSS** برای طراحی سریع
+- 🧱 **shadcn-ui** برای ساخت رابط کاربری حرفه‌ای
+- 🎧 سیستم صوتی ساده و سبک  
+- 🎮 Input Handling روان روی دسکتاپ
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+---
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## 🎯 گیم‌پلی
 
-# Step 3: Install the necessary dependencies.
-npm i
+<div align="center">
+<img src="gameplay.gif" width="600" alt="Gameplay"/>
+</div>
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+بازیکن وارد نقشه می‌شود، تجهیزات پیدا می‌کند، با دیگران مبارزه می‌کند و باید آخرین نفر زنده بماند.  
+در این نسخه، تمرکز روی سرعت، سادگی و جذابیت مبارزه است.
+
+---
+
+---
+
+## 🏁 اجرای پروژه
+
+```bash
+# نصب وابستگی‌ها
+npm install
+
+# اجرا در حالت توسعه
 npm run dev
-```
 
-**Edit a file directly in GitHub**
+# ساخت نسخه نهایی
+npm run build
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+# پیش‌نمایش
+npm run preview
 
-**Use GitHub Codespaces**
+🧩 دارایی‌ها (Assets)
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+برای گرافیک و صدا از منابع آزاد استفاده شده است:
 
-## What technologies are used for this project?
+🎨 Kenney.nl
 
-This project is built with:
+🔊 Freesound.org
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+🎮 itch.io Free Assets
 
-## How can I deploy this project?
+همه دارایی‌ها دارای لایسنس آزاد برای استفاده شخصی و تجاری هستند.
 
-Simply open [Lovable](https://lovable.dev/projects/06fb3a0b-ccd1-4822-8d2d-b91d38161b7d) and click on Share -> Publish.
+🤝 مشارکت
 
-## Can I connect a custom domain to my Lovable project?
+اگر ایده‌ای داری، باگی پیدا کردی یا محتوای جدید داری، Pull Request آزاد است!
+بازی با کمک جامعه بهتر و کامل‌تر می‌شود ❤️
 
-Yes, you can!
+<div align="center">
+⭐ اگر پروژه مفید بود، ستاره یادت نره!
+</div>
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+---
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+اگر دوست داری نسخه انگلیسی یا نسخه حرفه‌ای‌تر و پیشرفته‌تر هم درست کنم، یا برای پروژه لوگوی خفن طراحی کنم، ادامه مسیر بازه.
+
+
+## 📁 ساختار پوشه‌ها
+
