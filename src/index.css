@@ -2,95 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 220 20% 8%;
+    --foreground: 45 100% 96%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 220 18% 12%;
+    --card-foreground: 45 100% 96%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 220 18% 12%;
+    --popover-foreground: 45 100% 96%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 45 100% 50%;
+    --primary-foreground: 220 20% 8%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 200 80% 50%;
+    --secondary-foreground: 220 20% 8%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 15% 18%;
+    --muted-foreground: 220 10% 60%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 350 80% 55%;
+    --accent-foreground: 45 100% 96%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 85% 55%;
+    --destructive-foreground: 45 100% 96%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --success: 140 70% 45%;
+    --success-foreground: 220 20% 8%;
+
+    --border: 220 15% 25%;
+    --input: 220 15% 20%;
+    --ring: 45 100% 50%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 98%;
+    /* Game-specific colors */
+    --zone-safe: 140 70% 45%;
+    --zone-danger: 350 80% 55%;
+    --health: 140 70% 45%;
+    --shield: 200 80% 50%;
+    --ammo: 45 100% 50%;
+    --loot-common: 220 10% 60%;
+    --loot-rare: 200 80% 50%;
+    --loot-epic: 280 80% 60%;
+    --loot-legendary: 45 100% 50%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(45 100% 50%), hsl(35 100% 45%));
+    --gradient-danger: linear-gradient(135deg, hsl(350 80% 55%), hsl(0 85% 45%));
+    --gradient-safe: linear-gradient(135deg, hsl(140 70% 45%), hsl(160 70% 40%));
+    --gradient-dark: linear-gradient(180deg, hsl(220 20% 8%), hsl(220 20% 4%));
 
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Shadows */
+    --shadow-glow: 0 0 20px hsl(45 100% 50% / 0.3);
+    --shadow-danger: 0 0 30px hsl(350 80% 55% / 0.4);
   }
 }
 
@@ -100,6 +68,122 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-rajdhani;
+    font-family: 'Rajdhani', sans-serif;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Orbitron', sans-serif;
+  }
+}
+
+@layer components {
+  .font-orbitron {
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  .font-rajdhani {
+    font-family: 'Rajdhani', sans-serif;
+  }
+
+  .hud-panel {
+    @apply bg-card/90 backdrop-blur-sm border border-border rounded-lg;
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.1), inset 0 1px 0 hsl(var(--foreground) / 0.05);
+  }
+
+  .health-bar {
+    background: linear-gradient(90deg, hsl(var(--health)), hsl(140 70% 35%));
+    box-shadow: 0 0 10px hsl(var(--health) / 0.5);
+  }
+
+  .shield-bar {
+    background: linear-gradient(90deg, hsl(var(--shield)), hsl(200 80% 40%));
+    box-shadow: 0 0 10px hsl(var(--shield) / 0.5);
+  }
+
+  .zone-timer {
+    @apply font-orbitron;
+    text-shadow: 0 0 10px hsl(var(--zone-danger) / 0.8);
+  }
+
+  .kill-feed-item {
+    @apply animate-fade-in;
+    animation: slideInRight 0.3s ease-out;
+  }
+
+  .minimap {
+    @apply rounded-full border-2 border-primary/50;
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.2), inset 0 0 30px hsl(var(--background) / 0.5);
+  }
+
+  .loot-glow-common {
+    box-shadow: 0 0 8px hsl(var(--loot-common) / 0.6);
+  }
+
+  .loot-glow-rare {
+    box-shadow: 0 0 12px hsl(var(--loot-rare) / 0.8);
+  }
+
+  .loot-glow-epic {
+    box-shadow: 0 0 15px hsl(var(--loot-epic) / 0.8);
+  }
+
+  .loot-glow-legendary {
+    box-shadow: 0 0 20px hsl(var(--loot-legendary) / 0.9);
+    animation: legendaryPulse 2s ease-in-out infinite;
+  }
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 10px currentColor;
+  }
+
+  .text-glow-strong {
+    text-shadow: 0 0 20px currentColor, 0 0 40px currentColor;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes legendaryPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px hsl(var(--loot-legendary) / 0.9);
+  }
+  50% {
+    box-shadow: 0 0 35px hsl(var(--loot-legendary) / 1);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+/* Hide scrollbar for game */
+.game-container {
+  overflow: hidden;
+}
+
+.game-container::-webkit-scrollbar {
+  display: none;
 }
