@@ -99,3 +99,46 @@ npm run preview
 
 ## 📁 ساختار پوشه‌ها
 
+
+
+<div align="center">
+
+# ⚔️ 2D Top-Down Battle Royale  
+### Fast • Lightweight • Built with Vite + TypeScript + React
+
+A fast-paced 2D top-down battle royale where players loot, fight, survive,  
+and aim to be the **last one standing**.  
+Simple controls, smooth movement, and competitive gameplay.
+
+<br/>
+
+<img src="preview.gif" width="600" alt="Game Preview"/>
+
+</div>
+
+---
+
+### 🚀 Features
+- Top-down 2D combat  
+- Smooth shooting & movement  
+- Random loot & chests  
+- Dynamic shrinking zone  
+- Bots for solo mode  
+- Clean UI using shadcn-ui  
+- Tailwind-powered lightweight design  
+
+---
+
+### 🛠️ Tech Stack
+Vite • TypeScript • React • shadcn-ui • Tailwind CSS
+
+---
+
+### ▶️ Run the Project
+```bash
+npm install
+npm run dev
+<div align="center">
+⭐ Star the repo if you like it! ⭐
+
+</div> ``
