@@ -269,6 +269,7 @@ export class GameEngine {
 
   private updateEnemies(dt: number): void {
     const player = this.state.player;
+    const aliveEnemies = this.state.enemies.filter(e => e.isAlive);
 
     for (const enemy of this.state.enemies) {
       if (!enemy.isAlive) continue;
@@ -280,21 +281,42 @@ export class GameEngine {
           ? ENEMY_TANK_SPEED
           : ENEMY_SPEED;
 
-      // AI: Move towards player if close, otherwise wander
-      const distToPlayer = distance(enemy.position, player.position);
-      const detectionRange = 400;
+      // Find nearest target (player or other enemies)
+      let nearestTarget: { position: { x: number; y: number }; id: string; isPlayer: boolean } | null = null;
+      let nearestDist = Infinity;
 
-      if (player.isAlive && distToPlayer < detectionRange) {
-        // Chase player
-        const dir = normalize(subtract(player.position, enemy.position));
+      // Check distance to player
+      if (player.isAlive) {
+        const distToPlayer = distance(enemy.position, player.position);
+        if (distToPlayer < nearestDist) {
+          nearestDist = distToPlayer;
+          nearestTarget = { position: player.position, id: 'player', isPlayer: true };
+        }
+      }
+
+      // Check distance to other enemies
+      for (const otherEnemy of aliveEnemies) {
+        if (otherEnemy.id === enemy.id) continue;
+        const distToEnemy = distance(enemy.position, otherEnemy.position);
+        if (distToEnemy < nearestDist) {
+          nearestDist = distToEnemy;
+          nearestTarget = { position: otherEnemy.position, id: otherEnemy.id, isPlayer: false };
+        }
+      }
+
+      const detectionRange = 350;
+
+      if (nearestTarget && nearestDist < detectionRange) {
+        // Chase nearest target
+        const dir = normalize(subtract(nearestTarget.position, enemy.position));
         enemy.velocity = multiply(dir, speed);
-        enemy.rotation = angle(enemy.position, player.position);
+        enemy.rotation = angle(enemy.position, nearestTarget.position);
 
-        // Shoot at player
+        // Shoot at target
         const now = Date.now();
         const fireRate = enemy.type === 'tank' ? 1500 : enemy.type === 'fast' ? 800 : 1000;
-        if (now - enemy.lastShootTime >= fireRate && distToPlayer < 300) {
-          this.shootEnemy(enemy);
+        if (now - enemy.lastShootTime >= fireRate && nearestDist < 280) {
+          this.shootEnemy(enemy, nearestTarget.id);
           enemy.lastShootTime = now;
         }
       } else {
@@ -317,12 +339,13 @@ export class GameEngine {
         if (enemy.health <= 0) {
           enemy.isAlive = false;
           this.state.playersAlive--;
+          this.addKillFeed('Zone', `Enemy ${enemy.type}`, 'Storm');
         }
       }
     }
   }
 
-  private shootEnemy(enemy: Enemy): void {
+  private shootEnemy(enemy: Enemy, targetId?: string): void {
     const bulletDir = {
       x: Math.cos(enemy.rotation),
       y: Math.sin(enemy.rotation),
@@ -335,6 +358,7 @@ export class GameEngine {
       damage: enemy.type === 'tank' ? 20 : 10,
       ownerId: enemy.id,
       isPlayerBullet: false,
+      targetId,
     });
   }
 
@@ -389,6 +413,27 @@ export class GameEngine {
           if (player.health <= 0) {
             player.isAlive = false;
             player.health = 0;
+          }
+        }
+
+        // Enemy bullets vs other enemies
+        for (const enemy of this.state.enemies) {
+          if (!enemy.isAlive || enemy.id === bullet.ownerId) continue;
+          if (distance(bullet.position, enemy.position) < ENEMY_SIZE + BULLET_SIZE) {
+            enemy.health -= bullet.damage;
+            bullet.position = { x: -100, y: -100 };
+            
+            if (enemy.health <= 0) {
+              enemy.isAlive = false;
+              this.state.playersAlive--;
+              // Find killer name
+              const killer = this.state.enemies.find(e => e.id === bullet.ownerId);
+              this.addKillFeed(
+                killer ? `Enemy ${killer.type}` : 'Enemy',
+                `Enemy ${enemy.type}`,
+                'Pistol'
+              );
+            }
           }
         }
       }

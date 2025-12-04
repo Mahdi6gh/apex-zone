@@ -37,6 +37,7 @@ export interface Bullet {
   damage: number;
   ownerId: string;
   isPlayerBullet: boolean;
+  targetId?: string;
 }
 
 export interface Weapon {
