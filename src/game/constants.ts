@@ -7,15 +7,15 @@ export const ENEMY_SIZE = 20;
 export const BULLET_SIZE = 5;
 export const LOOT_SIZE = 15;
 
-export const PLAYER_SPEED = 200;
-export const ENEMY_SPEED = 80;
-export const ENEMY_FAST_SPEED = 140;
-export const ENEMY_TANK_SPEED = 50;
+export const PLAYER_SPEED = 320;
+export const ENEMY_SPEED = 120;
+export const ENEMY_FAST_SPEED = 200;
+export const ENEMY_TANK_SPEED = 70;
 
 export const INITIAL_SAFE_ZONE_RADIUS = 900;
 export const MIN_SAFE_ZONE_RADIUS = 100;
 export const ZONE_SHRINK_INTERVAL = 30000; // 30 seconds
-export const ZONE_SHRINK_SPEED = 20; // pixels per second
+export const ZONE_SHRINK_SPEED = 25; // pixels per second
 export const ZONE_DAMAGE = 5;
 
 export const INITIAL_ENEMIES = 30;
@@ -24,63 +24,69 @@ export const LOOT_SPAWN_COUNT = 40;
 export const WEAPONS: Record<string, Weapon> = {
   pistol: {
     name: 'Pistol',
-    damage: 15,
-    fireRate: 400,
-    ammo: 12,
-    maxAmmo: 12,
-    bulletSpeed: 500,
-    spread: 0.05,
+    damage: 18,
+    fireRate: 280,
+    ammo: 15,
+    maxAmmo: 15,
+    bulletSpeed: 700,
+    spread: 0.03,
     rarity: 'common',
+    pellets: 1,
   },
   smg: {
     name: 'SMG',
-    damage: 10,
-    fireRate: 100,
-    ammo: 30,
-    maxAmmo: 30,
-    bulletSpeed: 450,
-    spread: 0.15,
+    damage: 12,
+    fireRate: 70,
+    ammo: 35,
+    maxAmmo: 35,
+    bulletSpeed: 650,
+    spread: 0.12,
     rarity: 'common',
+    pellets: 1,
   },
   rifle: {
     name: 'Assault Rifle',
-    damage: 20,
-    fireRate: 150,
-    ammo: 25,
-    maxAmmo: 25,
-    bulletSpeed: 600,
-    spread: 0.08,
+    damage: 25,
+    fireRate: 100,
+    ammo: 30,
+    maxAmmo: 30,
+    bulletSpeed: 850,
+    spread: 0.05,
     rarity: 'rare',
+    pellets: 1,
   },
   shotgun: {
     name: 'Shotgun',
-    damage: 80,
-    fireRate: 800,
-    ammo: 6,
-    maxAmmo: 6,
-    bulletSpeed: 400,
-    spread: 0.3,
+    damage: 18,
+    fireRate: 600,
+    ammo: 8,
+    maxAmmo: 8,
+    bulletSpeed: 500,
+    spread: 0.35,
     rarity: 'rare',
+    pellets: 8,
   },
   sniper: {
     name: 'Sniper',
-    damage: 100,
-    fireRate: 1500,
+    damage: 150,
+    fireRate: 1200,
     ammo: 5,
     maxAmmo: 5,
-    bulletSpeed: 1000,
-    spread: 0.01,
+    bulletSpeed: 1500,
+    spread: 0.005,
     rarity: 'epic',
+    pellets: 1,
   },
   minigun: {
     name: 'Minigun',
-    damage: 8,
-    fireRate: 50,
-    ammo: 100,
-    maxAmmo: 100,
-    bulletSpeed: 550,
-    spread: 0.2,
+    damage: 10,
+    fireRate: 40,
+    ammo: 150,
+    maxAmmo: 150,
+    bulletSpeed: 750,
+    spread: 0.18,
     rarity: 'legendary',
+    pellets: 1,
   },
 };
 

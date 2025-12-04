@@ -247,20 +247,33 @@ export class GameEngine {
     const weapon = isPlayer ? (shooter as Player).weapon : WEAPONS.pistol;
     if (isPlayer && weapon.ammo <= 0) return;
 
-    const spread = (Math.random() - 0.5) * weapon.spread;
-    const bulletDir = {
-      x: Math.cos(shooter.rotation + spread),
-      y: Math.sin(shooter.rotation + spread),
-    };
+    const pelletCount = weapon.pellets || 1;
+    
+    for (let i = 0; i < pelletCount; i++) {
+      // For shotgun, spread pellets evenly across the spread angle
+      let spreadAngle: number;
+      if (pelletCount > 1) {
+        // Distribute pellets across the spread range
+        const spreadRange = weapon.spread * 2;
+        spreadAngle = -weapon.spread + (spreadRange * i / (pelletCount - 1)) + (Math.random() - 0.5) * 0.1;
+      } else {
+        spreadAngle = (Math.random() - 0.5) * weapon.spread;
+      }
+      
+      const bulletDir = {
+        x: Math.cos(shooter.rotation + spreadAngle),
+        y: Math.sin(shooter.rotation + spreadAngle),
+      };
 
-    this.state.bullets.push({
-      id: generateId(),
-      position: { ...shooter.position },
-      velocity: multiply(bulletDir, weapon.bulletSpeed),
-      damage: weapon.damage,
-      ownerId: shooter.id,
-      isPlayerBullet: isPlayer,
-    });
+      this.state.bullets.push({
+        id: generateId(),
+        position: { ...shooter.position },
+        velocity: multiply(bulletDir, weapon.bulletSpeed + (Math.random() - 0.5) * 50),
+        damage: weapon.damage,
+        ownerId: shooter.id,
+        isPlayerBullet: isPlayer,
+      });
+    }
 
     if (isPlayer) {
       (shooter as Player).weapon.ammo--;

@@ -7,6 +7,9 @@ class SoundManagerClass {
     if (!this.audioContext) {
       this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
     }
+    if (this.audioContext.state === 'suspended') {
+      this.audioContext.resume();
+    }
     return this.audioContext;
   }
 
@@ -38,35 +41,76 @@ class SoundManagerClass {
     }
   }
 
+  private playNoise(duration: number, volume: number = 0.1) {
+    if (!this.enabled) return;
+    
+    try {
+      const ctx = this.getAudioContext();
+      const bufferSize = ctx.sampleRate * duration;
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const output = buffer.getChannelData(0);
+      
+      for (let i = 0; i < bufferSize; i++) {
+        output[i] = Math.random() * 2 - 1;
+      }
+      
+      const noise = ctx.createBufferSource();
+      noise.buffer = buffer;
+      
+      const gainNode = ctx.createGain();
+      gainNode.gain.setValueAtTime(volume, ctx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + duration);
+      
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.value = 1000;
+      
+      noise.connect(filter);
+      filter.connect(gainNode);
+      gainNode.connect(ctx.destination);
+      
+      noise.start(ctx.currentTime);
+      noise.stop(ctx.currentTime + duration);
+    } catch (e) {
+      // Audio not supported
+    }
+  }
+
   playShoot(weaponName: string) {
     switch (weaponName) {
       case 'Pistol':
-        this.playTone(200, 0.1, 'square', 0.08);
+        this.playTone(180, 0.08, 'square', 0.12);
+        this.playNoise(0.05, 0.08);
         break;
       case 'SMG':
-        this.playTone(300, 0.05, 'square', 0.06);
+        this.playTone(250, 0.04, 'square', 0.08);
+        this.playNoise(0.03, 0.06);
         break;
       case 'Assault Rifle':
-        this.playTone(180, 0.08, 'sawtooth', 0.1);
+        this.playTone(150, 0.07, 'sawtooth', 0.12);
+        this.playNoise(0.06, 0.1);
         break;
       case 'Shotgun':
-        this.playTone(80, 0.2, 'sawtooth', 0.15);
-        setTimeout(() => this.playTone(60, 0.15, 'triangle', 0.1), 20);
+        this.playTone(60, 0.15, 'sawtooth', 0.2);
+        this.playNoise(0.12, 0.2);
+        setTimeout(() => this.playTone(40, 0.1, 'triangle', 0.1), 20);
         break;
       case 'Sniper':
-        this.playTone(400, 0.15, 'sine', 0.12);
-        this.playTone(100, 0.3, 'sawtooth', 0.08);
+        this.playTone(500, 0.1, 'sine', 0.15);
+        this.playTone(80, 0.25, 'sawtooth', 0.12);
+        this.playNoise(0.08, 0.1);
         break;
       case 'Minigun':
-        this.playTone(250, 0.03, 'square', 0.05);
+        this.playTone(300, 0.025, 'square', 0.06);
+        this.playNoise(0.02, 0.04);
         break;
       default:
-        this.playTone(200, 0.1, 'square', 0.08);
+        this.playTone(180, 0.08, 'square', 0.1);
     }
   }
 
   playEnemyShoot() {
-    this.playTone(150, 0.08, 'sawtooth', 0.05);
+    this.playTone(120, 0.06, 'sawtooth', 0.06);
   }
 
   playHit() {
