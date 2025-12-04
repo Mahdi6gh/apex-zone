@@ -49,6 +49,7 @@ export interface Weapon {
   bulletSpeed: number;
   spread: number;
   rarity: 'common' | 'rare' | 'epic' | 'legendary';
+  pellets: number;
 }
 
 export interface LootItem {
