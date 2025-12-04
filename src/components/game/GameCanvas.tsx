@@ -16,6 +16,19 @@ interface GameCanvasProps {
   canvasHeight: number;
 }
 
+// Helper function to get weapon icon
+const getWeaponIcon = (weaponName: string): string => {
+  switch (weaponName) {
+    case 'Pistol': return '🔫';
+    case 'SMG': return '💥';
+    case 'Assault Rifle': return '🎯';
+    case 'Shotgun': return '💣';
+    case 'Sniper': return '🎯';
+    case 'Minigun': return '⚡';
+    default: return '🔫';
+  }
+};
+
 export function GameCanvas({ gameState, canvasWidth, canvasHeight }: GameCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -119,6 +132,39 @@ export function GameCanvas({ gameState, canvasWidth, canvasHeight }: GameCanvasP
           ctx.rect(-LOOT_SIZE / 2, -LOOT_SIZE / 2, LOOT_SIZE, LOOT_SIZE);
         }
         ctx.fill();
+        ctx.restore();
+
+        // Draw weapon name and icon below loot
+        ctx.save();
+        ctx.shadowBlur = 0;
+        ctx.font = 'bold 10px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillStyle = color;
+        
+        let label = '';
+        let icon = '';
+        if (loot.type === 'weapon' && loot.weapon) {
+          label = loot.weapon.name;
+          icon = getWeaponIcon(loot.weapon.name);
+        } else if (loot.type === 'health') {
+          label = 'Health';
+          icon = '❤️';
+        } else if (loot.type === 'shield') {
+          label = 'Shield';
+          icon = '🛡️';
+        } else if (loot.type === 'ammo') {
+          label = 'Ammo';
+          icon = '📦';
+        }
+        
+        // Background for text
+        const textWidth = ctx.measureText(label).width;
+        ctx.fillStyle = 'rgba(0,0,0,0.7)';
+        ctx.fillRect(loot.position.x - textWidth / 2 - 4, loot.position.y + LOOT_SIZE + 4, textWidth + 8, 16);
+        
+        // Icon and label
+        ctx.fillStyle = color;
+        ctx.fillText(`${icon} ${label}`, loot.position.x, loot.position.y + LOOT_SIZE + 16);
         ctx.restore();
       }
 
